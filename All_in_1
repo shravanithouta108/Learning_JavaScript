@@ -1,0 +1,232 @@
+const sh= Symbol("key1");
+console.log(typeof sh)
+const a={
+  name:'shrav',
+  "Full name":'shravani',
+  age: 21,
+  ['sh'] :"key1",
+  myarr: [1,2,3]
+}
+console.log(a)
+console.log(a["Full name"])
+console.log(typeof ("full name"))
+
+// Also can be use with this too[''] and . operator
+console.log(a['name'])
+console.log(a.name)
+console.log(typeof a["name"])
+
+//console.log(a['sh']) not coming output undefined 
+console.log(a['sh'])
+
+console.log(typeof a['sh']) //string
+
+const user= new Object()
+user.id=123
+console.log(user)
+user.name='Ram'
+console.log(user)
+//Object.freeze(user) change to id 546 it works
+user.id=546
+console.log(user)
+
+user.myfun=function(){
+  console.log('My function inside Object')
+}
+console.log(user)
+console.log(user.myfun) //if not used'()' whole function is executed with syntax 
+console.log(user.myfun())
+
+user.myfun2=function(){
+  console.log(`Hello ${user.name}`)
+}
+console.log(user.myfun2())
+
+//Nested Objects
+
+const myobj={
+  name:'Sita',
+  age:22,
+  address:{
+    State:'UP',
+    Country:'India',
+    pincode:500201
+  }
+}
+console.log(myobj)
+console.log(myobj.address.pincode)
+
+//Object.assign()
+let target={
+  a:50,
+  b:100
+}
+console.log(target)
+
+
+let source={
+  b:15,
+  c:20
+}
+console.log(source)
+const newTarget=Object.assign(target,source)
+console.log(newTarget)
+
+const newSource=Object.assign(source,target)
+console.log(newSource)
+
+if(target===newTarget) {
+ console.log('Equal Target')
+}
+console.log("Change to old Target:",target)
+
+
+if(source===newSource) {
+  console.log('Equal Source')
+}
+console.log("Change to old Source:",source)
+
+let obj1={1:'a' ,2:'b'}
+let obj2={3:'a' ,4:'b'}
+let obj3={5:'a' ,6:'b'}
+const obj4={obj1,obj2,obj3}
+const objnew=Object.assign(obj1,obj2,obj3)
+console.log(obj1)//same output for obj1 and obj because the assign has change the values of the target and the returned target
+console.log(objnew)
+console.log(obj4)
+
+
+let o ={obj2,...obj3};// the three dots are called rest operator and output: first obj3 will come followed by the obj2 elements
+console.log(o);
+
+let o2 ={obj1,...obj2};
+console.log(o2);
+
+let o3 ={obj3,...obj2};
+console.log(o3);
+
+console.log(Object.keys(obj1)) // to get all the key values which you have given
+console.log(Object.values(obj1)) // similarly for values
+
+//*********** FUNCTION
+function simple(){
+  console.log("here's my first function")
+}
+simple() // function call
+
+function add(num1,num2){
+  console.log(num1+num2);
+}
+add() //NaN
+add(5,3) // 8
+add('5') //5undefined
+add(5)  //NaN
+add('5'+'7') //57undefined
+add(null,5) //5
+add(5,null) //5
+const result=add(5,3)
+console.log('Result without return:',result) // undefined because the function does not return the value in result variable which is outside the function
+function myfun(num1,num2){
+  //without printing returning the value to the function 
+return num1+num2 //undefined if we do not use the return keyword 
+}
+//console.log(myfun(2,5)) 
+const output=myfun(2,9)
+console.log(output)
+
+function text (name){
+    if(!name==''){
+  return `Hello ${name} nice to meet you`
+}
+}
+console.log(text(''))//Hello nice to meet you
+console.log(text(5))
+console.log(text('Ram'))
+console.log(text())//"undefined" output after if condition, is there is no if condition then "hello undefine makes to meet you"
+
+//To give a Default value 
+def()//no error here hosting does not work
+function def(name='Sita'){
+  console.log('Namaste', name)
+}
+def('Ram') //Ram is over written by Sita
+def() //default value
+
+//If Multiple values are given in a function called used rest operator in function definition parameter
+function num(...n){
+  return n
+}
+console.log(num(5,6,7))//5 is not used rest operator, if use rest operator i.e 3 dots before n "...n" [5, 6, 7]
+function num2(val,val2,...n){
+  return n
+}
+console.log(num2(5,6,7,8))//[7, 8]
+
+//************ HOSTING it will only work if you store the function in a variable 
+//host()//error output:"cannot access 'host' before initialization"
+const host = function(){
+  console.log('hosting')
+}
+host() //works normally 
+
+
+//**********this keyword(References to current context) context means what our variables hold i.e value
+const obj={
+  name:'Shrav',
+  age:20,
+  myfun : function(){
+    console.log(`Hello ${this.name}`) //prints only Hello if not used this keyword 
+    console.log(this) //Here this refers to object 
+
+  }
+}
+user.myfun() //function call
+user.name='Manu'
+user.myfun() //even it is const the value can change
+console.log(this) //Since code is working inside browser i.e why window object ***imp
+
+function one()
+{
+  console.log(this)
+}
+one() // Same Window Object
+
+// Remember this keyword doesn't work inside function only works for objects
+function two(){
+  let name='Manju'
+  console.log(name) //prints 
+  console.log(this.name) //empty no error //sir got "undefined
+  console.log(`GM,${this.name} hwr` ) //GM hrw
+}
+two()
+// Why not to used this and arrow keyword together 
+//simply remove function word and after parenthesis place an arrow => equal and greater than operator together 
+
+const my =() => {
+    let name='Manju'
+    console.log(`this: ${this}`)
+    console.log(`this.name: ${this.name} `) 
+}
+my() //no change
+
+//********arrow keyword
+//Syntax ()=>{} also u can hold this in a variable 
+const myarrow= () => {
+  return `hello`
+}
+console.log(myarrow()) //Hello
+
+// () => {"Arrow"} //error "Malformed arrow function parameter list"
+
+const add1= (n1,n2) =>{
+  return n1+n2 //Explicit return 
+}
+console.log(add1(3,6)) //9
+
+//In the above u can remove {} Curly braces and return type by default it returns know as 'Implicity'
+const add2= (n1,n2) => n1+n2
+console.log(add2(3,6)) //9
+
+
+const add3= (n1,n2) => (n1+n2)
+console.log(add3(3,6)) //9
