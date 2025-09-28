@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My DOM Learning Journey</title>
+  <style>
+        body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      margin: 20px;
+    }
+    h2 {
+      margin-top: 30px;
+    }
+    .highlight {
+      background-color: yellow;
+    }
+    .blue {
+      color: blue;
+    }
+    .red {
+      color: red;
+    }
+    button {
+      margin-top: 5px;
+      padding: 5px 10px;
+    }
+    div.demo-box {
+      width: 150px;
+      height: 50px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid black;
+    }
+  </style>
+
+</head>
+<body>
+
+<h1>My Journey Learning JavaScript DOM</h1>
+
+<!-- Section 1: IDs and Classes -->
+<h2>1. getElementById & getElementsByClassName</h2>
+<p>
+  <b>getElementById</b> returns a single element because IDs should be unique.<br>
+  <b>getElementsByClassName</b> returns a live HTMLCollection containing all elements with that class.
+</p>
+<div id="unique-box" class="demo-box">I am unique!</div>
+<div class="demo-box class-box">Class Box 1</div>
+<div class="demo-box class-box">Class Box 2</div>
+<button id="id-class-btn">Change Boxes</button>
+
+<!-- Section 2: querySelector & querySelectorAll -->
+<h2>2. querySelector & querySelectorAll</h2>
+<p>
+  <b>querySelector</b> selects the first element that matches a CSS selector.<br>
+  <b>querySelectorAll</b> selects all elements that match the selector and returns a NodeList.
+</p>
+<div class="qs-box">Box 1</div>
+<div class="qs-box">Box 2</div>
+<div class="qs-box">Box 3</div>
+<button id="qs-btn">Change Query Selector Boxes</button>
+
+<!-- Section 3: getAttribute & setAttribute -->
+<h2>3. getAttribute & setAttribute</h2>
+<p>
+  These methods let you read or update the raw HTML attributes of an element.
+</p>
+<img id="my-image" src="img1.jpg" alt="placeholder" height="10%" width="50%">
+<button id="attr-btn">Change Image Attribute</button>
+
+<!-- Section 4: Styles and Multiple CSS Properties -->
+<h2>4. Styles & Multiple CSS Properties</h2>
+<p>
+  You can update individual styles using <b>element.style.property</b> or multiple styles at once using <b>cssText</b>.
+</p>
+<div id="style-box" class="demo-box">Style Box</div>
+<button id="style-btn">Change Style</button>
+
+<!-- Section 5: NodeList & HTMLCollection to Array -->
+<h2>5. NodeList & HTMLCollection Conversion</h2>
+<p>
+  NodeList (from querySelectorAll) and HTMLCollection (from getElementsByClassName) look like arrays but aren’t real arrays.<br>
+  Convert them with <b>Array.from()</b> or <b>[...list]</b> to use array methods like forEach or map.
+</p>
+<div class="array-box">Array Box 1</div>
+<div class="array-box">Array Box 2</div>
+<div class="array-box">Array Box 3</div>
+<button id="array-btn">Color Array Boxes</button>
+
+<script>
+  console.log('Hello World!');
+  // --- Section 1: getElementById & getElementsByClassName ---
+  const uniqueBox = document.getElementById('unique-box');
+  const classBoxes = document.getElementsByClassName('class-box');
+
+  document.getElementById('id-class-btn').addEventListener('click', () => {
+    uniqueBox.style.backgroundColor = 'lightblue';
+    for (let box of classBoxes) {
+      box.style.backgroundColor = 'lightpink';
+    }
+  });
+
+  // --- Section 2: querySelector & querySelectorAll ---
+  const firstQSBox = document.querySelector('.qs-box');
+  const allQSBoxes = document.querySelectorAll('.qs-box');
+
+  document.getElementById('qs-btn').addEventListener('click', () => {
+    firstQSBox.style.border = '2px solid red';
+    allQSBoxes.forEach(box => 
+    box.style.fontWeight = 'bold',
+
+    );
+  });
+
+  // --- Section 3: getAttribute & setAttribute ---
+  const image = document.getElementById('my-image');
+  document.getElementById('attr-btn').addEventListener('click', () => {
+    console.log('Original src:', image.getAttribute('src'));
+    image.setAttribute('src', 'img2.jpg');
+    image.setAttribute('alt', 'Updated Image');
+    console.log('Updated src:', image.getAttribute('src'));
+  });
+
+  // --- Section 4: Styles & Multiple CSS Properties ---
+  const styleBox = document.getElementById('style-box');
+  document.getElementById('style-btn').addEventListener('click', () => {
+    styleBox.style.cssText = `
+      background-color: coral;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      letter-spacing: 2px;
+    `;
+  });
+
+  // --- Section 5: NodeList & HTMLCollection to Array ---
+  const arrayBoxes = document.getElementsByClassName('array-box');
+  const arrayBoxesArray = Array.from(arrayBoxes);
+
+  document.getElementById('array-btn').addEventListener('click', () => {
+    arrayBoxesArray.forEach(box => {
+      box.style.backgroundColor = 'pink';
+      box.style.color = 'white';
+      box.style.fontWeight = 'bold';
+    });
+  });
+  
+</script>
+</body>
+</html>
