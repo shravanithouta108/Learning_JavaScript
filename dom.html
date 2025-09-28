@@ -4,7 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My DOM Learning Journey</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+        body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      margin: 20px;
+    }
+    h2 {
+      margin-top: 30px;
+    }
+    .highlight {
+      background-color: yellow;
+    }
+    .blue {
+      color: blue;
+    }
+    .red {
+      color: red;
+    }
+    button {
+      margin-top: 5px;
+      padding: 5px 10px;
+    }
+    div.demo-box {
+      width: 150px;
+      height: 50px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid black;
+    }
+  </style>
 
 </head>
 <body>
@@ -60,8 +89,64 @@
 <div class="array-box">Array Box 3</div>
 <button id="array-btn">Color Array Boxes</button>
 
-<script src='main.js'>
-</script>
+<script>
+  console.log('Hello World!');
+  // --- Section 1: getElementById & getElementsByClassName ---
+  const uniqueBox = document.getElementById('unique-box');
+  const classBoxes = document.getElementsByClassName('class-box');
 
+  document.getElementById('id-class-btn').addEventListener('click', () => {
+    uniqueBox.style.backgroundColor = 'lightblue';
+    for (let box of classBoxes) {
+      box.style.backgroundColor = 'lightpink';
+    }
+  });
+
+  // --- Section 2: querySelector & querySelectorAll ---
+  const firstQSBox = document.querySelector('.qs-box');
+  const allQSBoxes = document.querySelectorAll('.qs-box');
+
+  document.getElementById('qs-btn').addEventListener('click', () => {
+    firstQSBox.style.border = '2px solid red';
+    allQSBoxes.forEach(box => 
+    box.style.fontWeight = 'bold',
+
+    );
+  });
+
+  // --- Section 3: getAttribute & setAttribute ---
+  const image = document.getElementById('my-image');
+  document.getElementById('attr-btn').addEventListener('click', () => {
+    console.log('Original src:', image.getAttribute('src'));
+    image.setAttribute('src', 'img2.jpg');
+    image.setAttribute('alt', 'Updated Image');
+    console.log('Updated src:', image.getAttribute('src'));
+  });
+
+  // --- Section 4: Styles & Multiple CSS Properties ---
+  const styleBox = document.getElementById('style-box');
+  document.getElementById('style-btn').addEventListener('click', () => {
+    styleBox.style.cssText = `
+      background-color: coral;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      letter-spacing: 2px;
+    `;
+  });
+
+  // --- Section 5: NodeList & HTMLCollection to Array ---
+  const arrayBoxes = document.getElementsByClassName('array-box');
+  const arrayBoxesArray = Array.from(arrayBoxes);
+
+  document.getElementById('array-btn').addEventListener('click', () => {
+    arrayBoxesArray.forEach(box => {
+      box.style.backgroundColor = 'pink';
+      box.style.color = 'white';
+      box.style.fontWeight = 'bold';
+    });
+  });
+  
+</script>
 </body>
 </html>
