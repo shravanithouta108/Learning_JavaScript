@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM Selectors & Properties Demo</title>
+</head>
+<body>
+
+<h1>DOM Selectors & Key Properties</h1>
+
+<ul>
+  <li><b>querySelector</b>: selects the first element that matches a CSS selector.</li>
+  <li><b>querySelectorAll</b>: selects all matching elements and returns a NodeList.</li>
+  <li><b>getElementById / getElementsByClassName / getElementsByTagName</b>: find elements by id, class or tag name.</li>
+</ul>
+
+<div class="demo-box">
+  <h2 id="sample-heading" class="title">Demo Heading
+    <span style="display:none"> (hidden text)</span>
+    <b>Bold text</b>
+  </h2>
+  <p id="sample-para">Original paragraph value</p>
+</div>
+
+<div class="info-box">
+  <p><strong>innerHTML</strong>: returns the HTML inside an element.</p>
+  <p><strong>innerText</strong>: visible text only (ignores hidden text and respects CSS).</p>
+  <p><strong>textContent</strong>: all text including hidden text, without formatting.</p>
+</div>
+
+<div class="info-box">
+  <p><strong>getAttribute / setAttribute</strong>: read or change an element’s attribute value.</p>
+</div>
+
+<div class="info-box">
+  <p><strong>Convert NodeList / HTMLCollection to Array</strong>:  
+     Use <code>Array.from()</code> or the spread syntax <code>[...collection]</code> to use array methods like <code>map</code> or <code>filter</code>.</p>
+</div>
+
+<script>
+// === querySelector & querySelectorAll ===
+console.log("querySelector examples:");
+console.log(document.querySelector('h2'));             // first <h2>
+console.log(document.querySelector('.title'));         // first element with class=title
+console.log(document.querySelector('#sample-heading')); // element with that ID
+console.log(document.querySelectorAll('h2'));          // NodeList of all h2s
+
+// style changes
+document.querySelector('h2').style.backgroundColor = 'wheat';
+document.querySelector('h2').style.color = 'red';
+
+// === getAttribute & setAttribute ===
+const heading = document.getElementById('sample-heading');
+console.log(document.getElementById('sample-heading'))
+console.log("getAttribute example:", heading.getAttribute('class')); // prints "title"
+
+heading.setAttribute('class', 'hw'); // changes class to hw
+console.log(document.getElementById('sample-heading'))
+console.log("After setAttribute, class is now:", heading.getAttribute('class'));
+
+// === innerHTML, innerText, textContent ===
+console.log("innerHTML:", heading.innerHTML);
+console.log("innerText:", heading.innerText);
+console.log("textContent:", heading.textContent);
+
+// === Change paragraph text using innerText ===
+const para = document.getElementById('sample-para');
+para.innerText = 'Value Changed';
+
+// === NodeList and HTMLCollection to Array ===
+// querySelectorAll gives NodeList:
+const boldNodeList = document.querySelectorAll('b');
+const boldArray1 = Array.from(boldNodeList);
+const boldArray2 = [...boldNodeList];
+console.log("NodeList as Array (Array.from):", boldArray1);
+console.log("NodeList as Array (spread):", boldArray2);
+
+// getElementsByTagName gives HTMLCollection:
+const h2Collection = document.getElementsByTagName('h2');
+const h2Array = Array.from(h2Collection);
+console.log("HTMLCollection as Array:", h2Array);
+
+// style all <b> tags
+boldArray1.forEach(b => b.style.textDecoration = 'underline');
+</script>
+
+</body>
+</html>
